@@ -1481,10 +1481,12 @@ java: $(JAVA_LIBS)
 	mkdir -p $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux
 	echo $(JAVA_SO_NAME:$(LIBDIR)/%=%) > $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux/NATIVE_LOAD_MANIFEST
 	for so in libiomp5.so libmklml_intel.so libmpi_cxx.so.1 libmpi.so.12; do \
+	    test -e $(MKL_LIB_PATH)/$$so || exit 1
 	    cp -p $(MKL_LIB_PATH)/$$so $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux; \
 	    echo $$so >> $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux/NATIVE_MANIFEST; \
 	done
 	for so in $(JAVA_LOAD_DEPS); do \
+	    test -e $(LIBDIR)/$$so || exit 1
 	    cp -p $(LIBDIR)/$$so $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux; \
 	    echo $$so >> $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux/NATIVE_MANIFEST; \
 	done
