@@ -1481,14 +1481,12 @@ java: $(JAVA_LIBS)
 	mkdir -p $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux
 	echo $(JAVA_SO_NAME:$(LIBDIR)/%=%) > $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux/NATIVE_LOAD_MANIFEST
 	for so in libmpi_cxx.so.1 libmpi.so.12; do \
-	    test -e $(MPI_PATH)/lib/$(so) || exit 1
-	    cp -p $(MPI_PATH)/lib/$(so) $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux; \
-	    echo $(so) >> $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux/NATIVE_MANIFEST; \
+	    cp -p $(MPI_PATH)/lib/$$so $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux; \
+	    echo $$so >> $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux/NATIVE_MANIFEST; \
 	done
 	for so in $(JAVA_LOAD_DEPS); do \
-	    test -e $(LIBDIR)/$(so) || exit 1
-	    cp -p $(LIBDIR)/$(so) $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux; \
-	    echo $(so) >> $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux/NATIVE_MANIFEST; \
+	    cp -p $(LIBDIR)/$$so $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux; \
+	    echo $$so >> $(JAVA_SWIG_DIR)/com/microsoft/CNTK/lib/linux/NATIVE_MANIFEST; \
 	done
 ifdef CUDA_PATH
 	for so in $(JAVA_DEP_SO_NAMES_GPU); do \
